@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwdnwdsrdr2xk"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_77obo"]
+[ext_resource type="Texture2D" uid="uid://babhv5r05sxvh" path="res://assets/bg.jpg" id="1_k7gxs"]
+[ext_resource type="Script" path="res://player/BulletSpawner.gd" id="3_xycw8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhx5w"]
+size = Vector2(54, 38)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8fkl1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 23
+motion_mode = 1
+slide_on_ceiling = false
+floor_stop_on_slope = false
+floor_block_on_wall = false
+platform_on_leave = 2
+script = ExtResource("1_77obo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jhx5w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0558055, 0.0558055)
+texture = ExtResource("1_k7gxs")
+
+[node name="bullet cooldown" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[node name="invulnerability" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8fkl1")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 2
+
+[node name="BulletSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath(".")
+script = ExtResource("3_xycw8")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

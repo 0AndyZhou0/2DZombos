@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwdnwdsrdr2xk"]
+
+[ext_resource type="Texture2D" uid="uid://babhv5r05sxvh" path="res://assets/bg.jpg" id="1_k7gxs"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_nk5ta"]
+[ext_resource type="PackedScene" uid="uid://bab13u0qvqng1" path="res://projectiles/bullet.tscn" id="2_08vhx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhx5w"]
+size = Vector2(54, 38)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8fkl1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="player" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_nk5ta")
+bullet = ExtResource("2_08vhx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jhx5w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0558055, 0.0558055)
+texture = ExtResource("1_k7gxs")
+
+[node name="bullet cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8fkl1")
+
+[node name="bullet" parent="." instance=ExtResource("2_08vhx")]

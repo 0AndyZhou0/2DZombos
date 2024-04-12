@@ -1,0 +1,104 @@
+[gd_scene load_steps=9 format=3 uid="uid://do1m6375jkjxt"]
+
+[ext_resource type="PackedScene" uid="uid://bw76itv4afluv" path="res://player/weapons/weapon.tscn" id="1_gelar"]
+[ext_resource type="PackedScene" uid="uid://df1cj1311ihk2" path="res://objects/box.tscn" id="2_nqrhg"]
+[ext_resource type="PackedScene" uid="uid://bl0nu3umsep6p" path="res://objects/zombiespawningarea.tscn" id="3_ra7u1"]
+[ext_resource type="Script" path="res://mainscripts/EnemySpawner.gd" id="3_vt1gq"]
+[ext_resource type="PackedScene" uid="uid://ctucte56j6l60" path="res://enemies/enemy.tscn" id="4_kwbw3"]
+[ext_resource type="Script" path="res://mainscripts/PlayerSpawner.gd" id="5_1vmkq"]
+[ext_resource type="PackedScene" uid="uid://dcqnwer5oveih" path="res://objects/playerbox.tscn" id="6_imiif"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_nxgug"]
+vertices = PackedVector2Array(-732, 766, -731, 697, -71, 209, -69, 208, -25, 208, 597, 1103, -732, 810, 30, 116, 597, -77, 11, 174, 11, 130, -14, 116, -33, 130, -71, 165, -69, 164, 30, 72, -937, -77, -14, 72, -937, 465, -115, 165, -883, 697, -882, 697, -882, 810, -838, 766, -838, 697, -940, 1103, -940, 557, -883, 653, -978, 557, -978, 546, -977, 477, -1084, 546, -1084, 477, -977, 465, -33, 164, -25, 174, -115, 209, -731, 653)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5, 6), PackedInt32Array(7, 8, 5, 9, 10), PackedInt32Array(11, 7, 10, 12), PackedInt32Array(3, 2, 13, 14), PackedInt32Array(8, 7, 15), PackedInt32Array(16, 8, 15, 17), PackedInt32Array(18, 16, 17, 11, 12, 19), PackedInt32Array(20, 21, 22), PackedInt32Array(0, 23, 24, 1), PackedInt32Array(6, 5, 25, 22), PackedInt32Array(22, 25, 26, 20), PackedInt32Array(27, 20, 26), PackedInt32Array(26, 28, 29, 30, 18), PackedInt32Array(29, 31, 32, 30), PackedInt32Array(30, 33, 18), PackedInt32Array(12, 34, 14), PackedInt32Array(4, 35, 9, 5), PackedInt32Array(36, 2, 1, 37), PackedInt32Array(36, 37, 27, 26, 18, 19), PackedInt32Array(19, 12, 14, 13)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1001, -134, 623, -107, 626, 1137, -994, 1144, -999, 594, -1125, 582, -1120, 440, -999, 435)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 12.0
+
+[node name="Game" type="Node2D"]
+metadata/totalcount = 0
+
+[node name="Weapon" parent="." instance=ExtResource("1_gelar")]
+position = Vector2(100, 100)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(664, -48)
+navigation_polygon = SubResource("NavigationPolygon_nxgug")
+constrain_avoidance = true
+
+[node name="Box" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+position = Vector2(8, 94)
+
+[node name="Box2" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+position = Vector2(-93, 187)
+
+[node name="Box3" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+position = Vector2(-11, 152)
+
+[node name="Box4" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+position = Vector2(-47, 186)
+
+[node name="wall" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+position = Vector2(-177, -106)
+scale = Vector2(78.6353, -1.72023)
+
+[node name="wall2" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+position = Vector2(-170, 1132)
+scale = Vector2(78.6353, -1.72023)
+
+[node name="wall3" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+position = Vector2(621, 491)
+scale = Vector2(1.2028, 65.7653)
+
+[node name="wall4" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+position = Vector2(-975, 857)
+scale = Vector2(2.29, 28.762)
+
+[node name="wall5" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+position = Vector2(-972, 165)
+scale = Vector2(2.29, 28.762)
+
+[node name="EnemySpawnLocations" type="Node2D" parent="NavigationRegion2D"]
+position = Vector2(-1055, 509)
+rotation = -1.57079
+
+[node name="0" parent="NavigationRegion2D/EnemySpawnLocations" groups=["EnemySpawnPoint"] instance=ExtResource("3_ra7u1")]
+
+[node name="1" parent="NavigationRegion2D/EnemySpawnLocations" groups=["EnemySpawnPoint"] instance=ExtResource("3_ra7u1")]
+position = Vector2(-219.999, 246)
+
+[node name="PlayerSpawnLocations" type="Node2D" parent="."]
+
+[node name="0" type="Node2D" parent="PlayerSpawnLocations" groups=["PlayerSpawnPoint"]]
+position = Vector2(571, 271)
+
+[node name="1" type="Node2D" parent="PlayerSpawnLocations" groups=["PlayerSpawnPoint"]]
+position = Vector2(645, 268)
+
+[node name="2" type="Node2D" parent="PlayerSpawnLocations" groups=["PlayerSpawnPoint"]]
+position = Vector2(572, 326)
+
+[node name="3" type="Node2D" parent="PlayerSpawnLocations" groups=["PlayerSpawnPoint"]]
+position = Vector2(646, 323)
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://enemies/enemy.tscn")
+spawn_path = NodePath("../Enemies")
+script = ExtResource("3_vt1gq")
+enemy_scene = ExtResource("4_kwbw3")
+
+[node name="Timer" type="Timer" parent="EnemySpawner"]
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Players")
+script = ExtResource("5_1vmkq")
+
+[node name="Barrier" parent="." instance=ExtResource("6_imiif")]
+position = Vector2(-312, 461)
+scale = Vector2(2.54, 6.09)
+
+[connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_timer_timeout"]

@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://do1m6375jkjxt"]
+
+[ext_resource type="PackedScene" uid="uid://dwdnwdsrdr2xk" path="res://player/player.tscn" id="1_q4rek"]
+[ext_resource type="PackedScene" uid="uid://df1cj1311ihk2" path="res://objects/box.tscn" id="2_lxks4"]
+[ext_resource type="PackedScene" uid="uid://ctucte56j6l60" path="res://enemies/enemy.tscn" id="3_iaiie"]
+[ext_resource type="PackedScene" uid="uid://b0e0hjs3rr1gc" path="res://player/playerspawner.tscn" id="5_yjjf8"]
+[ext_resource type="Script" path="res://MultiplayerSpawner.gd" id="6_nuf8p"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_nxgug"]
+vertices = PackedVector2Array(-71, 209, -69, 208, -25, 208, -940, 1103, 30, 116, 597, -77, 597, 1103, 11, 174, 11, 130, -14, 116, -33, 130, -71, 165, -69, 164, 30, 72, -940, -77, -14, 72, -33, 164, -25, 174, -115, 209, -115, 165)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(9, 4, 8, 10), PackedInt32Array(1, 0, 11, 12), PackedInt32Array(7, 6, 3, 2), PackedInt32Array(5, 4, 13), PackedInt32Array(14, 5, 13, 15), PackedInt32Array(10, 16, 12), PackedInt32Array(2, 17, 7), PackedInt32Array(18, 0, 3), PackedInt32Array(18, 3, 14, 19), PackedInt32Array(12, 11, 19, 14, 15, 10), PackedInt32Array(10, 15, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-977, -107, 623, -107, 626, 1137, -977, 1140)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 12.0
+
+[node name="Game" type="Node2D"]
+metadata/totalcount = 0
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(664, -48)
+navigation_polygon = SubResource("NavigationPolygon_nxgug")
+constrain_avoidance = true
+
+[node name="Box" parent="NavigationRegion2D" instance=ExtResource("2_lxks4")]
+position = Vector2(8, 94)
+
+[node name="Box2" parent="NavigationRegion2D" instance=ExtResource("2_lxks4")]
+position = Vector2(-93, 187)
+
+[node name="Box3" parent="NavigationRegion2D" instance=ExtResource("2_lxks4")]
+position = Vector2(-11, 152)
+
+[node name="Box4" parent="NavigationRegion2D" instance=ExtResource("2_lxks4")]
+position = Vector2(-47, 186)
+
+[node name="wall" parent="NavigationRegion2D" instance=ExtResource("2_lxks4")]
+position = Vector2(-177, -106)
+scale = Vector2(78.6353, -1.72023)
+
+[node name="wall2" parent="NavigationRegion2D" instance=ExtResource("2_lxks4")]
+position = Vector2(-170, 1132)
+scale = Vector2(78.6353, -1.72023)
+
+[node name="wall3" parent="NavigationRegion2D" instance=ExtResource("2_lxks4")]
+position = Vector2(621, 491)
+scale = Vector2(1.2028, 65.7653)
+
+[node name="wall4" parent="NavigationRegion2D" instance=ExtResource("2_lxks4")]
+position = Vector2(-975, 770)
+scale = Vector2(2.28955, -104.132)
+
+[node name="SpawnLocations" type="Node2D" parent="."]
+
+[node name="0" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
+position = Vector2(571, 271)
+
+[node name="1" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
+position = Vector2(645, 268)
+
+[node name="2" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
+position = Vector2(572, 326)
+
+[node name="3" type="Node2D" parent="SpawnLocations" groups=["PlayerSpawnPoint"]]
+position = Vector2(646, 323)
+
+[node name="playerspawner" parent="." instance=ExtResource("5_yjjf8")]
+player_scene = ExtResource("1_q4rek")
+
+[node name="enemies" type="Node" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+spawn_limit = 10
+script = ExtResource("6_nuf8p")
+enemy_scene = ExtResource("3_iaiie")
+
+[node name="Timer" type="Timer" parent="MultiplayerSpawner"]
+autostart = true
+
+[connection signal="timeout" from="MultiplayerSpawner/Timer" to="MultiplayerSpawner" method="_on_timer_timeout"]

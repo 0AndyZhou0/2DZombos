@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0017khho454i"]
+
+[ext_resource type="PackedScene" uid="uid://cm1bcnmuimloh" path="res://multiplayer_menu.tscn" id="2_02si0"]
+[ext_resource type="PackedScene" uid="uid://do1m6375jkjxt" path="res://maps/game.tscn" id="2_28qr0"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="multiplayer_menu" parent="." instance=ExtResource("2_02si0")]
+layout_mode = 1
+
+[node name="Game" parent="." instance=ExtResource("2_28qr0")]
+visible = false
