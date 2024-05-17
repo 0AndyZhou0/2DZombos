@@ -8,6 +8,9 @@ func _ready():
 	if not multiplayer.is_server():
 		return
 	
+	spawn_players()
+	
+func spawn_players():
 	for player in GameManager.Players:
 		spawn(player)
 
