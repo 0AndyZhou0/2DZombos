@@ -91,9 +91,12 @@ func change_weapon(slot: int):
 		update_weapon()
 
 # Weapon Pickup
-func set_weapon(new_weapon: Dictionary):
+func pickup_weapon(new_weapon: Dictionary):
 	if weapons.size() < maxweapons:
 		weapons.append(new_weapon)
+		# Change to new weapon
+		# Probably add animation here 
+		currweapon = weapons.size()-1
 	else:
 		weapons[currweapon] = new_weapon
 	update_weapon()

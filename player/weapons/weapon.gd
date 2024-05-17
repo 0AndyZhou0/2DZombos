@@ -19,7 +19,7 @@ func _process(_delta):
 	if player_on and Input.is_action_just_pressed("interact")\
 	and GameManager.get_points() >= weapon.cost:
 		GameManager.weapon_buy.rpc_id(1, weapon.cost)
-		player.set_weapon(weapon)
+		player.pickup_weapon(weapon)
 
 
 func _on_body_entered(body):
