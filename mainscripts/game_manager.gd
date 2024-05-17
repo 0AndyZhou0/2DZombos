@@ -35,6 +35,7 @@ func player_hit():
 	if Players[foriegn_id].hp <= 0:
 		for player in get_tree().get_nodes_in_group("Player"):
 			if player.name == str(foriegn_id):
+				#TODO: make hide player and turn on spectate mode
 				player.queue_free()
 
 @rpc("any_peer", "call_local", "reliable")

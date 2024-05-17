@@ -24,3 +24,6 @@ func _spawn_player(id: int) -> Node:
 
 func spawn_player(id: int):
 	spawn(id)
+
+func kill_player(id: int):
+	pass

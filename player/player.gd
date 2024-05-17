@@ -21,6 +21,7 @@ var weapons = [{
 func _ready():
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		var camera = Camera2D.new()
+		camera.zoom = Vector2(1.5, 1.5)
 		add_child(camera)
 
 func _physics_process(delta: float) -> void:
