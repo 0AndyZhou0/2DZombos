@@ -6,6 +6,7 @@ const ACCEL: float = 20.0
 @onready var shoot_timer: Timer = $"bullet cooldown"
 @onready var invulnerable: Timer = $invulnerability
 
+var maxweapons = 2
 var currweapon = 0
 var weapons = [{
 	"name": "pistol",
@@ -18,6 +19,8 @@ var weapons = [{
 	"cost": 1000,
 }]
 
+var perks = []
+
 func _ready():
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		var camera = Camera2D.new()
@@ -27,6 +30,14 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
+		
+	# Change Weapon
+	if Input.is_action_just_pressed("1"):
+		change_weapon(1)
+	elif Input.is_action_just_pressed("2"):
+		change_weapon(2)
+	elif Input.is_action_just_pressed("3"):
+		change_weapon(3)
 	
 	# Shoot
 	# TODO: add input buffer 
@@ -73,10 +84,18 @@ func fire_raycast() -> void:
 		if collider.has_method("enemy_hit"):
 			collider.enemy_hit.rpc()
 
+# Change Weapon
+func change_weapon(slot: int):
+	if weapons.size() >= slot:
+		currweapon = slot-1
+		update_weapon()
 
 # Weapon Pickup
 func set_weapon(new_weapon: Dictionary):
-	weapons[currweapon] = new_weapon
+	if weapons.size() < maxweapons:
+		weapons.append(new_weapon)
+	else:
+		weapons[currweapon] = new_weapon
 	update_weapon()
 	
 func update_weapon():
