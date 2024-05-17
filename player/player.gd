@@ -5,6 +5,9 @@ var speed: float = 300.0
 const ACCEL: float = 20.0
 @onready var shoot_timer: Timer = $"bullet cooldown"
 @onready var invulnerable: Timer = $invulnerability
+var camera: Node
+
+var downed: bool = false
 
 var maxweapons = 2
 var currweapon = 0
@@ -23,7 +26,7 @@ var perks = []
 
 func _ready():
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
-		var camera = Camera2D.new()
+		camera = Camera2D.new()
 		camera.zoom = Vector2(1.5, 1.5)
 		add_child(camera)
 
@@ -62,6 +65,9 @@ func player_hit() -> void:
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id() and invulnerable.is_stopped():
 		GameManager.player_hit.rpc_id(1)
 		invulnerable.start()
+
+func player_die():
+	queue_free()
 
 # Shooting
 func fire_bullet():

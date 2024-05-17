@@ -31,12 +31,38 @@ func player_hit():
 	
 	Players[foriegn_id].hp -= 1.0
 	update_player_hp.rpc(foriegn_id, Players[foriegn_id].hp)
-	#print("player_id:", id, " hp:", Players[p].hp)
+	print("player_id:", foriegn_id, " hp:", Players[foriegn_id].hp)
 	if Players[foriegn_id].hp <= 0:
 		for player in get_tree().get_nodes_in_group("Player"):
 			if player.name == str(foriegn_id):
 				#TODO: make hide player and turn on spectate mode
-				player.queue_free()
+				print("bleh i'm ded frfr")
+				#player.queue_free()
+				kill_player.rpc(foriegn_id)
+
+@rpc("authority", "call_local", "reliable")
+func kill_player(id: int):
+	for player in get_tree().get_nodes_in_group("Player"):
+		if player.name == str(id):
+			player.remove_from_group("Player")
+			player.add_to_group("Dead_Player")
+			player.visible = false
+			player.get_node("CollisionShape2D").disabled = true
+			player.set_process(false)
+			player.set_physics_process(false)
+			player.set_process_input(false)
+
+@rpc("authority", "call_local", "reliable")
+func respawn_player(id: int):
+	for player in get_tree().get_nodes_in_group("Player"):
+		if player.name == str(id):
+			player.remove_from_group("Dead_Player")
+			player.add_to_group("Player")
+			player.visible = true
+			player.get_node("CollisionShape2D").disabled = false
+			player.set_process(true)
+			player.set_physics_process(true)
+			player.set_process_input(true)
 
 @rpc("any_peer", "call_local", "reliable")
 func enemy_hit(id: int):

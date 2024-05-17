@@ -8,11 +8,12 @@ func _ready():
 	if not multiplayer.is_server():
 		return
 	
-	spawn_players()
-	
-func spawn_players():
 	for player in GameManager.Players:
 		spawn(player)
+	
+func respawn_players():
+	for player in get_tree().get_nodes_in_group("Player"):
+		player.set_process(true)
 
 func _spawn_player(id: int) -> Node:
 	var currentPlayer = load("res://player/player.tscn").instantiate()
@@ -29,4 +30,6 @@ func spawn_player(id: int):
 	spawn(id)
 
 func kill_player(id: int):
-	pass
+	for player in get_tree().get_nodes_in_group("Player"):
+		if player.name == str(id):
+			player.set_process(false)
