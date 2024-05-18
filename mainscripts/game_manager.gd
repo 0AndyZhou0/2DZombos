@@ -51,18 +51,22 @@ func kill_player(id: int):
 			player.set_process(false)
 			player.set_physics_process(false)
 			player.set_process_input(false)
+			player.disable_camera()
+	for player in get_tree().get_nodes_in_group("Player"):
+		if player.name != str(id):
+			player.enable_camera()
 
 @rpc("authority", "call_local", "reliable")
-func respawn_player(id: int):
-	for player in get_tree().get_nodes_in_group("Player"):
-		if player.name == str(id):
-			player.remove_from_group("Dead_Player")
-			player.add_to_group("Player")
-			player.visible = true
-			player.get_node("CollisionShape2D").disabled = false
-			player.set_process(true)
-			player.set_physics_process(true)
-			player.set_process_input(true)
+func respawn_players() -> void:
+	for player in get_tree().get_nodes_in_group("Dead_Player"):
+		player.remove_from_group("Dead_Player")
+		player.add_to_group("Player")
+		player.visible = true
+		player.get_node("CollisionShape2D").disabled = false
+		player.set_process(true)
+		player.set_physics_process(true)
+		player.set_process_input(true)
+		player.enable_player_camera()
 
 @rpc("any_peer", "call_local", "reliable")
 func enemy_hit(id: int):

@@ -14,6 +14,11 @@ func _ready():
 		$Timer.start()
 	spawn_function = _spawn_mob
 
+func next_round() -> void:
+	index = 1
+	round += 1
+	enemies_left = round * 10
+	GameManager.respawn_players.rpc()
 
 func _spawn_mob(id: int) -> Node:
 	var enemy = enemy_scene.instantiate()
@@ -32,6 +37,4 @@ func _on_timer_timeout():
 	if enemies_left > 0 and get_tree().get_nodes_in_group("Enemy").size() < 24:
 		spawn(index)
 	elif get_tree().get_nodes_in_group("Enemy").is_empty():
-		index = 1
-		round += 1
-		enemies_left = 10 * round
+		next_round()

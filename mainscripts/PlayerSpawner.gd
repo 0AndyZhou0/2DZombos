@@ -10,10 +10,6 @@ func _ready():
 	
 	for player in GameManager.Players:
 		spawn(player)
-	
-func respawn_players():
-	for player in get_tree().get_nodes_in_group("Player"):
-		player.set_process(true)
 
 func _spawn_player(id: int) -> Node:
 	var currentPlayer = load("res://player/player.tscn").instantiate()
@@ -28,8 +24,3 @@ func _spawn_player(id: int) -> Node:
 
 func spawn_player(id: int):
 	spawn(id)
-
-func kill_player(id: int):
-	for player in get_tree().get_nodes_in_group("Player"):
-		if player.name == str(id):
-			player.set_process(false)

@@ -24,11 +24,14 @@ var weapons = [{
 
 var perks = []
 
-func _ready():
+func _ready() -> void:
+	camera = Camera2D.new()
+	disable_camera()
+	camera.zoom = Vector2(1.5, 1.5)
+	camera.add_to_group("Camera")
+	add_child(camera)
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
-		camera = Camera2D.new()
-		camera.zoom = Vector2(1.5, 1.5)
-		add_child(camera)
+		enable_camera()
 
 func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
@@ -60,7 +63,22 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity.limit_length(speed)
 
 	move_and_slide()
+	
+# Camera
+func disable_camera() -> void:
+	camera.enabled = false
 
+func enable_player_camera() -> void:
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
+		print("fixing camera")
+		for player in get_tree().get_nodes_in_group("Player"):
+			player.disable_camera()
+		camera.enabled = true
+		
+func enable_camera() -> void:
+	camera.enabled = true
+
+# Player Enemy Damage Interactions 
 func player_hit() -> void:
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id() and invulnerable.is_stopped():
 		GameManager.player_hit.rpc_id(1)
@@ -70,7 +88,7 @@ func player_die():
 	queue_free()
 
 # Shooting
-func fire_bullet():
+func fire_bullet() -> void:
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var dir: Vector2 = mouse_pos - position
 	$BulletSpawner.spawn([global_position, dir, multiplayer.get_unique_id(), weapons[currweapon]])
@@ -91,30 +109,34 @@ func fire_raycast() -> void:
 			collider.enemy_hit.rpc()
 
 # Change Weapon
-func change_weapon(slot: int):
+func change_weapon(slot: int) -> bool:
 	if weapons.size() >= slot:
 		currweapon = slot-1
 		update_weapon()
+		return true
+	return false
 
 # Weapon Pickup
-func pickup_weapon(new_weapon: Dictionary):
+func pickup_weapon(new_weapon: Dictionary) -> bool:
+	var picked_up = false
 	if weapons.size() < maxweapons:
 		weapons.append(new_weapon)
-		# Change to new weapon
-		# Probably add animation here 
 		currweapon = weapons.size()-1
+		# Probably add animation here 
+		picked_up = true
 	else:
 		weapons[currweapon] = new_weapon
 	update_weapon()
+	return picked_up
 	
-func update_weapon():
+func update_weapon() -> void:
 	set_firerate(weapons[currweapon].firerate)
 	set_movement_speed(weapons[currweapon].movement_speed)
 
-func set_movement_speed(multiplier: float):
+func set_movement_speed(multiplier: float) -> void:
 	speed = 300.0 * multiplier
 
-func set_firerate(firerate: float):
+func set_firerate(firerate: float) -> void:
 	shoot_timer.wait_time = 1/firerate
 
 # Getters
