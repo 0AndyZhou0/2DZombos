@@ -42,6 +42,10 @@ func player_hit():
 
 @rpc("authority", "call_local", "reliable")
 func kill_player(id: int):
+	if get_tree().get_nodes_in_group("Player").size() == 1:
+		# TODO: add game over screen 
+		get_tree().quit()
+		return
 	for player in get_tree().get_nodes_in_group("Player"):
 		if player.name == str(id):
 			player.remove_from_group("Player")
@@ -50,22 +54,24 @@ func kill_player(id: int):
 			player.get_node("CollisionShape2D").disabled = true
 			player.set_process(false)
 			player.set_physics_process(false)
-			player.set_process_input(false)
+			#player.set_process_input(false)
 			player.disable_camera()
-	for player in get_tree().get_nodes_in_group("Player"):
-		if player.name != str(id):
-			player.enable_camera()
+			player.spectate_next()
 
 @rpc("authority", "call_local", "reliable")
 func respawn_players() -> void:
+	var curr = 0
+	var spawns = get_tree().get_nodes_in_group("PlayerSpawnPoint")
 	for player in get_tree().get_nodes_in_group("Dead_Player"):
 		player.remove_from_group("Dead_Player")
 		player.add_to_group("Player")
+		player.position = spawns[curr].position
+		curr += 1
 		player.visible = true
 		player.get_node("CollisionShape2D").disabled = false
 		player.set_process(true)
 		player.set_physics_process(true)
-		player.set_process_input(true)
+		#player.set_process_input(true)
 		player.enable_player_camera()
 
 @rpc("any_peer", "call_local", "reliable")

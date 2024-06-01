@@ -27,7 +27,7 @@ func _spawn_mob(id: int) -> Node:
 	enemy.global_position = spawns[id%spawns.size()].global_position
 	GameManager.Enemies[id] = {
 		"id": id,
-		"hp": 3*round
+		"hp": 1+(2*round)
 	}
 	index += 1
 	enemies_left -= 1

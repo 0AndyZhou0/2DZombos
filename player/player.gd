@@ -8,6 +8,7 @@ const ACCEL: float = 20.0
 var camera: Node
 
 var downed: bool = false
+var spectating: int = 0
 
 var maxweapons = 2
 var currweapon = 0
@@ -32,6 +33,13 @@ func _ready() -> void:
 	add_child(camera)
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		enable_camera()
+		
+func _input(event):
+	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id()\
+	and camera.enabled == false and event is InputEventMouseButton\
+	and event.pressed and event.is_action_pressed("shoot"):
+		spectate_next()
+	pass
 
 func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
@@ -77,6 +85,16 @@ func enable_player_camera() -> void:
 		
 func enable_camera() -> void:
 	camera.enabled = true
+	
+func spectate_next() -> void:
+	var players = get_tree().get_nodes_in_group("Player")
+	if players.size() <= 0:
+		return
+	spectating = (spectating + 1) % players.size()
+	for player in players:
+		player.disable_camera()
+	players[spectating].enable_camera()
+	
 
 # Player Enemy Damage Interactions 
 func player_hit() -> void:
