@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+var disable_controls: bool = false
+
 var speed: float = 300.0
 const ACCEL: float = 20.0
 @onready var shoot_timer: Timer = $"bullet cooldown"
@@ -35,24 +37,37 @@ func _ready() -> void:
 		enable_camera()
 		
 func _input(event):
-	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id()\
-	and camera.enabled == false and event is InputEventMouseButton\
+	if $MultiplayerSynchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
+		return
+		
+	if camera.enabled == false and event is InputEventMouseButton\
 	and event.pressed and event.is_action_pressed("shoot"):
 		spectate_next()
+	
 	pass
 
 func _physics_process(delta: float) -> void:
 	if $MultiplayerSynchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
 		
-	# Change Weapon
-	if Input.is_action_just_pressed("1"):
-		change_weapon(1)
-	elif Input.is_action_just_pressed("2"):
-		change_weapon(2)
-	elif Input.is_action_just_pressed("3"):
-		change_weapon(3)
+	if !disable_controls:
+		# Change Weapon
+		if Input.is_action_just_pressed("1"):
+			change_weapon(1)
+		elif Input.is_action_just_pressed("2"):
+			change_weapon(2)
+		elif Input.is_action_just_pressed("3"):
+			change_weapon(3)
+		
+		check_shoot(delta)
+
+		# Fire raycast
+		#fire_raycast()
+			
+		movement(delta)
 	
+	
+func check_shoot(delta):
 	# Shoot
 	# TODO: add input buffer 
 	# if we are allowed to shoot and if we are able to shoot
@@ -60,9 +75,7 @@ func _physics_process(delta: float) -> void:
 	and (Input.is_action_just_pressed("shoot") or weapons[currweapon].auto):
 		fire_bullet()
 
-		# Fire raycast
-		#fire_raycast()
-	
+func movement(delta):
 	# Movement
 	var direction: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var angle: float = abs(direction.angle_to(velocity))
@@ -71,7 +84,7 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity.limit_length(speed)
 
 	move_and_slide()
-	
+
 # Camera
 func disable_camera() -> void:
 	camera.enabled = false

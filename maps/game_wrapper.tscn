@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dvk5oibgd014h"]
+
+[ext_resource type="Script" uid="uid://cftmqfacpnj4d" path="res://maps/game_wrapper.gd" id="1_x0tmg"]
+[ext_resource type="PackedScene" uid="uid://do1m6375jkjxt" path="res://maps/game.tscn" id="2_dend5"]
+[ext_resource type="PackedScene" uid="uid://cb6ckdc256k75" path="res://menus/pause_menu.tscn" id="3_h8axh"]
+[ext_resource type="PackedScene" uid="uid://dyoekurw0kqlm" path="res://menus/settings_menu.tscn" id="4_dend5"]
+
+[node name="GameWrapper" type="Node2D" unique_id=2048255895]
+script = ExtResource("1_x0tmg")
+
+[node name="Game" parent="." unique_id=341488483 instance=ExtResource("2_dend5")]
+
+[node name="PauseMenu" parent="." unique_id=376309308 instance=ExtResource("3_h8axh")]
+visible = false
+
+[node name="SettingsMenu" parent="." unique_id=2021019175 instance=ExtResource("4_dend5")]
+visible = false

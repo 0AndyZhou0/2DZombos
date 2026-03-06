@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dyoekurw0kqlm"]
+
+[ext_resource type="Texture2D" uid="uid://babhv5r05sxvh" path="res://assets/bg.jpg" id="1_83qjl"]
+
+[node name="SettingsMenu" type="Control" unique_id=2021019175]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=115668304]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 689.0
+texture = ExtResource("1_83qjl")
+flip_h = true
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=1307479989]
+layout_mode = 0
+offset_left = 381.0
+offset_top = 213.0
+offset_right = 782.0
+offset_bottom = 315.0
+text = "This is the settings menu "

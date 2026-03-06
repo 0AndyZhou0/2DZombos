@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://do1m6375jkjxt"]
+[gd_scene format=3 uid="uid://do1m6375jkjxt"]
 
 [ext_resource type="PackedScene" uid="uid://bw76itv4afluv" path="res://player/weapons/weapon.tscn" id="1_gelar"]
 [ext_resource type="PackedScene" uid="uid://df1cj1311ihk2" path="res://objects/box.tscn" id="2_nqrhg"]
 [ext_resource type="PackedScene" uid="uid://bl0nu3umsep6p" path="res://objects/zombiespawningarea.tscn" id="3_ra7u1"]
-[ext_resource type="Script" path="res://mainscripts/EnemySpawner.gd" id="3_vt1gq"]
+[ext_resource type="Script" uid="uid://domuo8e533o5w" path="res://mainscripts/EnemySpawner.gd" id="3_vt1gq"]
 [ext_resource type="PackedScene" uid="uid://ctucte56j6l60" path="res://enemies/enemy.tscn" id="4_kwbw3"]
-[ext_resource type="Script" path="res://mainscripts/PlayerSpawner.gd" id="5_1vmkq"]
+[ext_resource type="Script" uid="uid://cr4koxnowlotx" path="res://mainscripts/PlayerSpawner.gd" id="5_1vmkq"]
 [ext_resource type="PackedScene" uid="uid://dcqnwer5oveih" path="res://objects/playerbox.tscn" id="6_imiif"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_nxgug"]
@@ -15,89 +15,88 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-1001, -134, 623, -107,
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 20.53
 
-[node name="Game" type="Node2D" groups=["Game"]]
+[node name="Game" type="Node2D" unique_id=341488483 groups=["Game"]]
 metadata/totalcount = 0
 
-[node name="Weapon" parent="." instance=ExtResource("1_gelar")]
+[node name="Weapon" parent="." unique_id=1319481000 instance=ExtResource("1_gelar")]
 position = Vector2(100, 100)
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1044148221]
 position = Vector2(664, -48)
 navigation_polygon = SubResource("NavigationPolygon_nxgug")
-constrain_avoidance = true
 
-[node name="Box" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+[node name="Box" parent="NavigationRegion2D" unique_id=670466228 instance=ExtResource("2_nqrhg")]
 position = Vector2(8, 94)
 
-[node name="Box2" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+[node name="Box2" parent="NavigationRegion2D" unique_id=1263847114 instance=ExtResource("2_nqrhg")]
 position = Vector2(-93, 187)
 
-[node name="Box3" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+[node name="Box3" parent="NavigationRegion2D" unique_id=1689786494 instance=ExtResource("2_nqrhg")]
 position = Vector2(-11, 152)
 
-[node name="Box4" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+[node name="Box4" parent="NavigationRegion2D" unique_id=1477935883 instance=ExtResource("2_nqrhg")]
 position = Vector2(-47, 186)
 
-[node name="wall" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+[node name="wall" parent="NavigationRegion2D" unique_id=513476977 instance=ExtResource("2_nqrhg")]
 position = Vector2(-177, -106)
 scale = Vector2(78.6353, -1.72023)
 
-[node name="wall2" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+[node name="wall2" parent="NavigationRegion2D" unique_id=367044411 instance=ExtResource("2_nqrhg")]
 position = Vector2(-170, 1132)
 scale = Vector2(78.6353, -1.72023)
 
-[node name="wall3" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+[node name="wall3" parent="NavigationRegion2D" unique_id=2061235247 instance=ExtResource("2_nqrhg")]
 position = Vector2(621, 491)
 scale = Vector2(1.2028, 65.7653)
 
-[node name="wall4" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+[node name="wall4" parent="NavigationRegion2D" unique_id=1620176411 instance=ExtResource("2_nqrhg")]
 position = Vector2(-975, 857)
 scale = Vector2(2.29, 28.762)
 
-[node name="wall5" parent="NavigationRegion2D" instance=ExtResource("2_nqrhg")]
+[node name="wall5" parent="NavigationRegion2D" unique_id=362492429 instance=ExtResource("2_nqrhg")]
 position = Vector2(-972, 165)
 scale = Vector2(2.29, 28.762)
 
-[node name="EnemySpawnLocations" type="Node2D" parent="NavigationRegion2D"]
+[node name="EnemySpawnLocations" type="Node2D" parent="NavigationRegion2D" unique_id=456454925]
 position = Vector2(-1055, 509)
 rotation = -1.57079
 
-[node name="0" parent="NavigationRegion2D/EnemySpawnLocations" groups=["EnemySpawnPoint"] instance=ExtResource("3_ra7u1")]
+[node name="0" parent="NavigationRegion2D/EnemySpawnLocations" unique_id=1103584595 groups=["EnemySpawnPoint"] instance=ExtResource("3_ra7u1")]
 
-[node name="1" parent="NavigationRegion2D/EnemySpawnLocations" groups=["EnemySpawnPoint"] instance=ExtResource("3_ra7u1")]
+[node name="1" parent="NavigationRegion2D/EnemySpawnLocations" unique_id=2059344901 groups=["EnemySpawnPoint"] instance=ExtResource("3_ra7u1")]
 position = Vector2(-219.999, 246)
 
-[node name="PlayerSpawnLocations" type="Node2D" parent="."]
+[node name="PlayerSpawnLocations" type="Node2D" parent="." unique_id=1736671942]
 
-[node name="0" type="Node2D" parent="PlayerSpawnLocations" groups=["PlayerSpawnPoint"]]
+[node name="0" type="Node2D" parent="PlayerSpawnLocations" unique_id=1204410119 groups=["PlayerSpawnPoint"]]
 position = Vector2(571, 271)
 
-[node name="1" type="Node2D" parent="PlayerSpawnLocations" groups=["PlayerSpawnPoint"]]
+[node name="1" type="Node2D" parent="PlayerSpawnLocations" unique_id=1250762538 groups=["PlayerSpawnPoint"]]
 position = Vector2(645, 268)
 
-[node name="2" type="Node2D" parent="PlayerSpawnLocations" groups=["PlayerSpawnPoint"]]
+[node name="2" type="Node2D" parent="PlayerSpawnLocations" unique_id=1766472447 groups=["PlayerSpawnPoint"]]
 position = Vector2(572, 326)
 
-[node name="3" type="Node2D" parent="PlayerSpawnLocations" groups=["PlayerSpawnPoint"]]
+[node name="3" type="Node2D" parent="PlayerSpawnLocations" unique_id=410697543 groups=["PlayerSpawnPoint"]]
 position = Vector2(646, 323)
 
-[node name="Players" type="Node" parent="."]
+[node name="Players" type="Node" parent="." unique_id=811154571]
 
-[node name="Enemies" type="Node" parent="."]
+[node name="Enemies" type="Node" parent="." unique_id=171342046]
 
-[node name="EnemySpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://enemies/enemy.tscn")
+[node name="EnemySpawner" type="MultiplayerSpawner" parent="." unique_id=560073741]
+_spawnable_scenes = PackedStringArray("uid://ctucte56j6l60")
 spawn_path = NodePath("../Enemies")
 script = ExtResource("3_vt1gq")
 enemy_scene = ExtResource("4_kwbw3")
 
-[node name="Timer" type="Timer" parent="EnemySpawner"]
+[node name="Timer" type="Timer" parent="EnemySpawner" unique_id=993776188]
 
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1797603577]
 spawn_path = NodePath("../Players")
 script = ExtResource("5_1vmkq")
 
-[node name="Barrier" parent="." instance=ExtResource("6_imiif")]
+[node name="Barrier" parent="." unique_id=1983525759 instance=ExtResource("6_imiif")]
 position = Vector2(-312, 461)
 scale = Vector2(2.54, 6.09)
 

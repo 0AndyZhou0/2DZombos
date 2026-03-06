@@ -82,4 +82,4 @@ func join_game(address: String):
 func start_game():
 	if not game_started:
 		game_started = true
-		get_tree().change_scene_to_file("res://maps/game.tscn")
+		get_tree().change_scene_to_file("res://maps/game_wrapper.tscn")

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cb6ckdc256k75"]
+
+[ext_resource type="Script" uid="uid://ce3vf6vb3ue5p" path="res://menus/pause_menu.gd" id="1_p1qj3"]
+[ext_resource type="Texture2D" uid="uid://babhv5r05sxvh" path="res://assets/bg.jpg" id="1_s0u37"]
+
+[node name="PauseMenu" type="Control" unique_id=376309308]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_p1qj3")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1559247378]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 689.0
+texture = ExtResource("1_s0u37")
+
+[node name="Continue" type="Button" parent="." unique_id=2011614768]
+layout_mode = 0
+offset_left = 510.0
+offset_top = 107.0
+offset_right = 624.0
+offset_bottom = 149.0
+theme_override_font_sizes/font_size = 24
+text = "Continue
+"
+
+[node name="Settings" type="Button" parent="." unique_id=1437706332]
+layout_mode = 0
+offset_left = 519.0
+offset_top = 276.0
+offset_right = 620.0
+offset_bottom = 318.0
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+
+[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]

@@ -24,4 +24,3 @@ func _on_join_button_down():
 
 func _on_start_button_down():
 	ServerManager.start_game.rpc()
-
