@@ -1,6 +1,6 @@
-extends Control
+extends Node
 
-var current_state: int = 0; # 0: not paused, 1: pause menu, 2: settings menu
+var game_zoom = 2.0 # Might never be adjustable
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,10 +10,3 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func _on_settings_pressed() -> void:
-	get_parent().pause_to_settings()
-
-
-func _on_continue_pressed() -> void:
-	get_parent().pause_to_game()

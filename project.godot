@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://mainscripts/game_manager.gd"
 ServerManager="*res://mainscripts/server_manager.gd"
+PlayerSettings="*uid://c4qnvsqokyah7"
 
 [input]
 
@@ -90,5 +91,6 @@ interact={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

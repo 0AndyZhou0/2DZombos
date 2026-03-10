@@ -30,13 +30,14 @@ var perks = []
 func _ready() -> void:
 	camera = Camera2D.new()
 	disable_camera()
-	camera.zoom = Vector2(1.5, 1.5)
+	camera.zoom = Vector2(2, 2)
 	camera.add_to_group("Camera")
 	add_child(camera)
 	if $MultiplayerSynchronizer.get_multiplayer_authority() == multiplayer.get_unique_id():
 		enable_camera()
 		
 func _input(event):
+	# Probably not working since spectating is untested
 	if $MultiplayerSynchronizer.get_multiplayer_authority() != multiplayer.get_unique_id():
 		return
 		

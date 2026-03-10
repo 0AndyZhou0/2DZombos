@@ -10,26 +10,29 @@ script = ExtResource("1_p1qj3")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1559247378]
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 689.0
+offset_left = -493.0
+offset_top = -344.5
+offset_right = 493.0
+offset_bottom = 344.5
 texture = ExtResource("1_s0u37")
+expand_mode = 3
 
 [node name="Continue" type="Button" parent="." unique_id=2011614768]
 layout_mode = 0
-offset_left = 510.0
-offset_top = 107.0
-offset_right = 624.0
-offset_bottom = 149.0
+offset_left = -56.0
+offset_top = -147.0
+offset_right = 58.0
+offset_bottom = -105.0
 theme_override_font_sizes/font_size = 24
 text = "Continue
 "
 
 [node name="Settings" type="Button" parent="." unique_id=1437706332]
 layout_mode = 0
-offset_left = 519.0
-offset_top = 276.0
-offset_right = 620.0
-offset_bottom = 318.0
+offset_left = -48.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 93.0
 theme_override_font_sizes/font_size = 24
 text = "Settings"
 

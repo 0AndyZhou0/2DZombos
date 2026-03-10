@@ -1,18 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwdnwdsrdr2xk"]
+[gd_scene format=3 uid="uid://dwdnwdsrdr2xk"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_77obo"]
-[ext_resource type="Texture2D" uid="uid://babhv5r05sxvh" path="res://assets/bg.jpg" id="1_k7gxs"]
-[ext_resource type="Script" path="res://player/BulletSpawner.gd" id="3_xycw8"]
+[ext_resource type="Script" uid="uid://c378hd2p8lmta" path="res://player/player.gd" id="1_77obo"]
+[ext_resource type="Texture2D" uid="uid://dsbkw1eki7bti" path="res://assets/player/temp-player.png" id="2_g1dw6"]
+[ext_resource type="Script" uid="uid://bn10ijd4pq6os" path="res://player/BulletSpawner.gd" id="3_xycw8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jhx5w"]
-size = Vector2(54, 38)
+size = Vector2(26, 38)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8fkl1"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1140954611 groups=["Player"]]
 collision_layer = 2
 collision_mask = 23
 motion_mode = 1
@@ -22,29 +22,29 @@ floor_block_on_wall = false
 platform_on_leave = 2
 script = ExtResource("1_77obo")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=526291162]
 shape = SubResource("RectangleShape2D_jhx5w")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.0558055, 0.0558055)
-texture = ExtResource("1_k7gxs")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=375803817]
+position = Vector2(1, 0)
+texture = ExtResource("2_g1dw6")
 
-[node name="bullet cooldown" type="Timer" parent="."]
+[node name="bullet cooldown" type="Timer" parent="." unique_id=1696943925]
 wait_time = 0.1
 one_shot = true
 autostart = true
 
-[node name="invulnerability" type="Timer" parent="."]
+[node name="invulnerability" type="Timer" parent="." unique_id=323890707]
 one_shot = true
 autostart = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=216578653]
 replication_config = SubResource("SceneReplicationConfig_8fkl1")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=841668034]
 collision_mask = 2
 
-[node name="BulletSpawner" type="MultiplayerSpawner" parent="."]
+[node name="BulletSpawner" type="MultiplayerSpawner" parent="." unique_id=741820978]
 spawn_path = NodePath(".")
 script = ExtResource("3_xycw8")
 
